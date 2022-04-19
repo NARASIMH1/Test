@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>CPU SW TOOLCHAINS Support : AMD Optimizing CPU Libraries (AOCL)</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">CPU SW TOOLCHAINS Support</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            CPU SW TOOLCHAINS Support : AMD Optimizing CPU Libraries (AOCL)
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                        
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Moharana, Somanath</span>, last modified by <span class='editor'> Babu L, Mohan</span> on Dec 22, 2021
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <h3 id="AMDOptimizingCPULibraries(AOCL)-Introduction">Introduction</h3><p>The suite of AMD Optimized CPU Libraries (AOCL) are a set of numerical libraries tuned specifically for AMD processors.  Each library offers a simple interface to take advantage of the latest processor hardware features.  The tuned implementations of industry-standard math libraries enable rapid development of scientific and high-performance computing projects.</p><p>These AOCL libraries are supported with Spack packages:</p><ul><li>amdblis</li><li>amdlibflame</li><li>amdfftw</li><li>amdscalapack</li><li>amdlibm</li><li>aocl-sparse</li></ul><p class="auto-cursor-target"><span style="color: rgb(23,43,77);">Please use any combination of below components/Applications and its versions:</span></p><div class="table-wrap"><table class="wrapped confluenceTable"><colgroup><col/><col/></colgroup><thead><tr><th style="text-align: left;" class="confluenceTh"><p>Component</p></th><th style="text-align: left;" class="confluenceTh"><p>Versions Applicable</p></th></tr></thead><tbody><tr><td style="text-align: left;" class="confluenceTd">AOCL</td><td style="text-align: left;" class="confluenceTd">3.1, 3.0, 2.2</td></tr><tr><td style="text-align: left;" class="confluenceTd">AOCC</td><td style="text-align: left;" class="confluenceTd">3.2.0, 3.1.0, 3.0.0. 2.3.0, 2.2.0</td></tr></tbody></table></div><h3 id="AMDOptimizingCPULibraries(AOCL)-AMDBLIS">AMD BLIS</h3><p>BLIS is a portable, open-source software framework for instantiating high-performance Basic Linear Algebra Subprograms (BLAS), such as dense linear algebra libraries.  The framework was designed to isolate essential kernels of computation that, when optimized, immediately enable optimized implementations of most of the commonly used and computationally-intensive operations.  Select kernels have been optimized for the AMD EPYC™, Ryzen™, and Ryzen™ Threadripper™ processor families by AMD and others.</p><p>List of variants for use with AMD BLIS - </p><div class="table-wrap"><table class="wrapped confluenceTable"><colgroup><col/><col/><col/></colgroup><tbody><tr><th style="text-align: center;" class="confluenceTh">Variant (Default)</th><th class="confluenceTh">Allowed Values</th><th class="confluenceTh">Description</th></tr><tr><td colspan="1" class="confluenceTd">ilp64 (off)</td><td colspan="1" class="confluenceTd">on, off</td><td colspan="1" class="confluenceTd">Build with ILP64 Support</td></tr><tr><td class="confluenceTd">blas (on)</td><td class="confluenceTd">on, off</td><td class="confluenceTd">BLAS Compatibility</td></tr><tr><td class="confluenceTd">cblas (on)</td><td class="confluenceTd">on, off</td><td class="confluenceTd">CBLAS Compatibility </td></tr><tr><td class="confluenceTd">shared (on)</td><td class="confluenceTd">on, off</td><td class="confluenceTd">Build shared library</td></tr><tr><td class="confluenceTd">static (on)</td><td class="confluenceTd">on, off</td><td class="confluenceTd">Build static library</td></tr><tr><td class="confluenceTd">threads (none)</td><td class="confluenceTd">pthreads, openmp, none</td><td style="text-align: center;" class="confluenceTd">Multithreading support</td></tr></tbody></table></div><div class="code panel pdl" style="border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>Basic commands for amdblis</b></div><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: false; theme: Confluence" data-theme="Confluence"># Format For Building AMD BLIS with AOCC compiler
+$ spack -d install -v amdblis@&lt;Version&gt; %aocc@&lt;Version&gt;
+
+# Example: For Building AMD BLIS-3.1 with AOCC-3.2
+$ spack -d install -v amdblis@3.1 %aocc@3.2.0
+
+# Example: For Building AMD BLIS-3.1 with AOCC-3.1
+$ spack -d install -v amdblis@3.1 %aocc@3.1.0
+
+# Example: For Building AMD BLIS-3.1 with AOCC-3.2 with ILP64 Support
+$ spack -d install -v amdblis@3.1 +ilp64 %aocc@3.2.0
+
+# Example: For Building AMD BLIS-3.1 with AOCC-3.2 with openmp threads
+$ spack -d install -v amdblis@3.1 %aocc@3.2.0 threads=openmp
+</pre>
+</div></div><h3 id="AMDOptimizingCPULibraries(AOCL)-AMDLibFLAME">AMD LibFLAME</h3><p>LibFLAME is a portable library for dense matrix computations, providing much of the functionality present in Linear Algebra Package (LAPACK).  LibFLAME includes a Fortran interface compatibility layer, FLAPACK, that includes complete LAPACK implementation. The library provides scientific and numerical-computing communities with a modern, high-performance, dense linear algebra library that is extensible, easy to use, and available under an open source license.  In combination with the BLIS library, libFLAME enables running high-performing LAPACK functions with optimization for AMD EPYC™, Ryzen™, and Ryzen™ Threadripper™ processor families.</p><p>List of variants for use with AMD LibFLAME - </p><div class="table-wrap"><table class="wrapped confluenceTable"><colgroup><col/><col/><col/></colgroup><tbody><tr><th class="confluenceTh">Variant (Default)</th><th class="confluenceTh">Allowed Values</th><th class="confluenceTh">Description</th></tr><tr><td colspan="1" class="confluenceTd">ilp64 (off)</td><td colspan="1" class="confluenceTd">on, off</td><td colspan="1" class="confluenceTd">Build with ILP64 support</td></tr><tr><td class="confluenceTd">debug (off)</td><td class="confluenceTd">on, off</td><td class="confluenceTd">Build with debugging support</td></tr><tr><td class="confluenceTd">lapack2flame (on)</td><td class="confluenceTd">on, off</td><td class="confluenceTd">Map legacy LAPACK routine invocations to their corresponding native C implementations in libflame</td></tr><tr><td class="confluenceTd">shared (on)</td><td class="confluenceTd">on, off</td><td class="confluenceTd">Build shared library</td></tr><tr><td class="confluenceTd">static (on)</td><td class="confluenceTd">on, off</td><td class="confluenceTd">Build static library</td></tr></tbody></table></div><div class="code panel pdl" style="border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>Basic commands for amdlibflame</b></div><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: false; theme: Confluence" data-theme="Confluence"># Format For Building AMD LibFLAME with AOCC
+$ spack -d install -v amdlibflame@&lt;Version&gt; %aocc@&lt;Version&gt;
+
+# Example: For Building AMD LibFLAME-3.1 with AOCC-3.2
+$ spack -d install -v amdlibflame@3.1 %aocc@3.2.0
+
+# Example: For Building AMD LibFLAME-3.1 with AOCC-3.1
+$ spack -d install -v amdlibflame@3.1 %aocc@3.1.0 
+
+# Example: For Building AMD LibFlame-3.1 with AOCC-3.2 with ILP64 Support
+$ spack -d install -v amdlibflame@3.1 +ilp64 %aocc@3.2.0</pre>
+</div></div><h3 id="AMDOptimizingCPULibraries(AOCL)-AMDFFTW">AMD FFTW</h3><p>FFTW is a comprehensive collection of fast C routines for computing the Discrete Fourier Transform (DFT) and various special cases thereof.  FFTW is an open-source implementation of the Fast Fourier transform algorithm that can compute transforms of real and complex-values arrays of arbitrary size and dimension.  An AMD-optimized FFTW that includes selective kernels and routines optimized for the AMD EPYC™, Ryzen™, and Ryzen™ Threadripper™ processor families is available.</p><p>List of variants for use with AMD FFTW - </p><div class="table-wrap"><table class="wrapped confluenceTable"><colgroup><col/><col/><col/></colgroup><tbody><tr><th class="confluenceTh">Variant (Default)</th><th class="confluenceTh">Allowed Values</th><th class="confluenceTh">Description</th></tr><tr><td colspan="1" class="confluenceTd">amd-top-n-planner (off)</td><td colspan="1" class="confluenceTd">on, off</td><td colspan="1" class="confluenceTd">Build with amd-top-n-planner support</td></tr><tr><td colspan="1" class="confluenceTd">amd-mpi-vader-limit (off)</td><td colspan="1" class="confluenceTd">on, off</td><td colspan="1" class="confluenceTd">Build with amd-mpi-vader-limit support</td></tr><tr><td colspan="1" class="confluenceTd">static (off)</td><td colspan="1" class="confluenceTd">on, off</td><td colspan="1" class="confluenceTd">Build with static support</td></tr><tr><td colspan="1" class="confluenceTd">amd-trans (off)</td><td colspan="1" class="confluenceTd">on, off</td><td colspan="1" class="confluenceTd">Build with amd-trans support</td></tr><tr><td colspan="1" class="confluenceTd">amd-app-opt (off)</td><td colspan="1" class="confluenceTd">on, off</td><td colspan="1" class="confluenceTd">Build with amd-opt support</td></tr><tr><td class="confluenceTd">amd-fast-planner (off)</td><td class="confluenceTd">on, off</td><td class="confluenceTd">Option to reduce the planning time without much tradeoff in the performance. It is supported for float and double precision</td></tr><tr><td class="confluenceTd">debug (off)</td><td class="confluenceTd">on, off</td><td class="confluenceTd">Builds a debug version of the library</td></tr><tr><td class="confluenceTd">mpi (on)</td><td class="confluenceTd">on, off</td><td class="confluenceTd">Activate MPI support</td></tr><tr><td class="confluenceTd">openmp (on)</td><td class="confluenceTd">on, off</td><td class="confluenceTd">Enable OpenMP Support</td></tr><tr><td class="confluenceTd">precision (float,double)</td><td class="confluenceTd">long_double, quad, float, double</td><td class="confluenceTd">Build the selected floating-point precision libraries</td></tr><tr><td class="confluenceTd">shared (on)</td><td class="confluenceTd">on, off</td><td class="confluenceTd">Builds a shared version of the library</td></tr><tr><td colspan="1" class="confluenceTd">threads (off)</td><td colspan="1" class="confluenceTd">on, off</td><td colspan="1" class="confluenceTd">Enable SMP threads support</td></tr></tbody></table></div><div class="code panel pdl" style="border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>Basic commands for amdfftw</b></div><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: false; theme: Confluence" data-theme="Confluence"># Format For Building AMD FFTW with AOCC
+$ spack -d install -v amdfftw@&lt;Version&gt; %aocc@&lt;Version&gt;
+
+# Example: For Building AMD FFTW-3.1 with AOCC-3.2.0
+$ spack -d install -v amdfft@3.1 %aocc@3.2.0
+
+# Example: For Building AMD FFTW-3.0 with AOCC-3.1.0
+$ spack -d install -v amdfft@3.1 %aocc@3.1.0
+
+# Example: For Building AMD FFTW-3.1 for precisions float and double with AOCC-3.2.0 with amd-fast-planner option
+$ spack -d install -v amdfftw@3.1 +amd-fast-planner %aocc@3.2.0 precision=float,double
+
+# Example: For Building AMD FFTW-3.1 for precisions float and double with AOCC-3.2.0 with amd-top-n-planner option
+$ spack -d install -v amdfftw@3.1 +amd-top-n-planner %aocc@3.2.0 precision=float,double</pre>
+</div></div><h3 id="AMDOptimizingCPULibraries(AOCL)-AMDScaLAPACK">AMD ScaLAPACK</h3><p>ScaLAPACK is a library of high-performance linear algebra routines for parallel distributed memory machines. ScaLAPACK depends on external libraries, including BLAS and LAPACK, for Linear Algebra computations.  AMD’s optimized version of ScaLAPACK enables using the optimized BLIS and libFLAME libraries.</p><p>List of variants for use with AMD ScaLAPACK - </p><div class="table-wrap"><table class="wrapped confluenceTable"><colgroup><col/><col/><col/></colgroup><tbody><tr><th class="confluenceTh">Variant (Default)</th><th class="confluenceTh">Allowed Values</th><th class="confluenceTh">Description</th></tr><tr><td colspan="1" class="confluenceTd">ilp64 (off)</td><td colspan="1" class="confluenceTd">on, off</td><td colspan="1" class="confluenceTd">Build with ILP64 support</td></tr><tr><td class="confluenceTd">build_type (Release)</td><td class="confluenceTd">Release, RelWithDebInfo</td><td class="confluenceTd">CMake build type</td></tr><tr><td class="confluenceTd">ipo (off)</td><td class="confluenceTd">on. off</td><td class="confluenceTd">CMake interprocedural optimization</td></tr><tr><td class="confluenceTd">pic (off)</td><td class="confluenceTd">on, off</td><td class="confluenceTd">Build position independent code</td></tr><tr><td class="confluenceTd">shared (on)</td><td class="confluenceTd">on, off</td><td class="confluenceTd">Build the shared library version</td></tr></tbody></table></div><div class="code panel pdl" style="border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>Basic Commands for amdscalapack </b></div><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: false; theme: Confluence" data-theme="Confluence"># Format For Building AMD ScaLAPACK with AOCC
+$ spack -d install -v amdscalapack@&lt;Version&gt; %aocc@&lt;Version&gt;
+
+# Example: For Building AMD ScaLAPACK-3.1 with AOCC-3.2.0
+$ spack -d install -v amdscalapack@3.1 %aocc@3.2.0
+
+# Example: For Building AMD ScaLAPACK-3.1 with AOCC-3.1.0
+$ spack -d install -v amdscalapack@3.1 %aocc@3.1.0
+
+# Example: For Building AMD ScaLAPACK-3.1 with AOCC-3.2.0 with ILP64 support
+$ spack -d install -v amdscalapack@3.1 +ilp64 %aocc@3.2.0
+
+# Example: For Building AMD ScaLAPACK-3.1 with AMD LibFLAME-3.1 and AMD BLIS-3.1 and with AOCC-3.2.0
+$ spack -d install -v amdscalapack@3.1 %aocc@3.2.0 ^amdlibflame@3.1 ^amdblis@3.1</pre>
+</div></div><h3 id="AMDOptimizingCPULibraries(AOCL)-AMDLibM(MathLibrary)"><strong>AMD LibM (Math Library)</strong></h3><p>AMD LibM is a C software library containing a collection of basic math functions optimized for x86-64 processor based machines.  AMD LibM provides many routines from the list of standard C99 math functions that may provide higher accuracy or performance than those offered by the default compiler.</p><p>List of variants for use with AMD LibM - </p><div class="table-wrap"><table class="confluenceTable"><colgroup><col/><col/><col/></colgroup><tbody><tr><th class="confluenceTh">Variant (Default)</th><th class="confluenceTh">Allowed Values</th><th colspan="1" class="confluenceTh">Description</th></tr><tr><td class="confluenceTd">verbose (off)</td><td class="confluenceTd">on, off</td><td colspan="1" class="confluenceTd">Building with verbosity</td></tr></tbody></table></div><div class="code panel pdl" style="border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>Basic Commands for amdlibm</b></div><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: false; theme: Confluence" data-theme="Confluence"># Format For Building AMD LIBM with AOCC
+$ spack -d install -v amdlibm@&lt;Version&gt; %aocc@&lt;Version&gt;
+
+# Example: For Building AMD LIBM-3.1 with AOCC-3.2.0
+$ spack -d install -v amdlibm@3.1 %aocc@3.2.0
+
+# Example: For Building AMD LIBM-3.1 with AOCC-3.1.0
+$ spack -d install -v amdlibm@3.1 %aocc@3.1.0
+
+# Example: For Building AMD LIBM-3.1 with AOCC-3.2.0 with verbose
+$ spack -d install -v amdlibm@3.1 +verbose %aocc@3.2.0</pre>
+</div></div><h3 id="AMDOptimizingCPULibraries(AOCL)-AOCL-Sparse">AOCL-Sparse</h3><p>AOCL-Sparse is a library of basic linear algebra subroutines for the sparse matrices and vectors optimized for AMD EPYC™, Ryzen™, and Ryzen™ Threadripper™ processor families, designed to be used with C and C++ applications.<br/>AOCL-Sparse functions are organized in two categories:</p><ol><li>Sparse Level 2 functions describe the operations between a matrix in sparse format and a vector in dense format.</li><li>Sparse Format Conversion functions describe operations on a matrix in sparse format to obtain a different matrix format.</li></ol><p>List of variants for use with AOCL-Sparse - </p><div class="table-wrap"><table class="confluenceTable"><colgroup><col/><col/><col/></colgroup><tbody><tr><th class="confluenceTh">Variant (Default)</th><th class="confluenceTh">Allowed Values</th><th class="confluenceTh">Description</th></tr><tr><td class="confluenceTd">build_type (Release)</td><td class="confluenceTd">Debug, Release</td><td class="confluenceTd">CMake build type</td></tr><tr><td class="confluenceTd">ilp64 (off)</td><td class="confluenceTd">on, off</td><td class="confluenceTd">Build with ILP64 support</td></tr><tr><td class="confluenceTd">ipo (off)</td><td class="confluenceTd">on, off</td><td class="confluenceTd">CMake interprocedural optimization</td></tr><tr><td class="confluenceTd">shared (on)</td><td class="confluenceTd">on, off</td><td class="confluenceTd">Build shared library</td></tr></tbody></table></div><div class="code panel pdl" style="border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>Basic Commands for aocl-sparse</b></div><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: bash; gutter: false; theme: Confluence" data-theme="Confluence"># Format For Building AOCL-Sparse with AOCC
+$ spack -d install -v aocl-sparse@&lt;Version&gt; %aocc@&lt;Version&gt;
+
+# Example: For Building AOCL-Sparse-3.1 with AOCC-3.2.0
+$ spack -d install -v aocl-sparse@3.1 %aocc@3.2.0
+
+# Example: For Building AOCL-Sparse-3.1 with AOCC-3.1
+$ spack -d install -v aocl-sparse@3.1 %aocc@3.1.0
+
+# Example: For Building AOCL-Sparse-3.1 with AOCC-3.2 with ILP64 support
+$ spack -d install -v aocl-sparse@3.1 %aocc@3.2.0 +ilp64 </pre>
+</div></div>
+                    </div>
+
+                                        
+                 
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on Jan 13, 2022 23:00</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>
